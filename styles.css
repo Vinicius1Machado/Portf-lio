@@ -1,40 +1,128 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
-    background: #f4f4f4;
-    color: #333;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-header {
-    background: #1e1e2f;
-    color: #fff;
-    padding: 30px;
+body {
+    background: #0f172a;
+    color: #e5e7eb;
+    line-height: 1.6;
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #020617, #0f172a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    padding: 40px;
 }
 
-section {
-    background: #fff;
+.hero h1 {
+    font-size: 3rem;
+    color: #38bdf8;
+}
+
+.hero h2 {
+    font-weight: 400;
+    margin: 15px 0;
+    color: #cbd5f5;
+}
+
+.hero p {
+    max-width: 700px;
     margin: 20px auto;
-    padding: 20px;
-    max-width: 800px;
-    border-radius: 6px;
 }
 
-h2 {
-    color: #1e1e2f;
-}
-
-ul {
-    padding-left: 20px;
-}
-
-a {
-    color: #1e1e2f;
+.btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    background: #38bdf8;
+    color: #020617;
+    border-radius: 30px;
     text-decoration: none;
+    font-weight: bold;
 }
 
+/* SECTIONS */
+.section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.section h3 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #38bdf8;
+}
+
+.section.dark {
+    background: #020617;
+    border-radius: 20px;
+}
+
+/* SKILLS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #0f172a;
+    padding: 25px;
+    text-align: center;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: #1e293b;
+}
+
+/* TIMELINE */
+.timeline {
+    list-style: none;
+}
+
+.timeline li {
+    margin-bottom: 25px;
+    padding-left: 20px;
+    border-left: 2px solid #38bdf8;
+}
+
+.timeline span {
+    display: block;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+/* CONTACT */
+.contact a {
+    margin-right: 20px;
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* FOOTER */
 footer {
     text-align: center;
-    padding: 15px;
+    padding: 30px;
     font-size: 14px;
+    background: #020617;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
 }
