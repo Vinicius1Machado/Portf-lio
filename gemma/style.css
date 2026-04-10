@@ -1,0 +1,468 @@
+/* Variáveis de Cor e Fonte */
+:root {
+    --color-dark-bg: #121212; /* Fundo muito escuro */
+    --color-dark-bg-alt: #1a1a2e; /* Para seções secundárias */
+    --color-primary: #00bcd4; /* Ciano vibrante (A cor principal) */
+    --color-secondary: #64b5f6; /* Um azul mais suave para contraste */
+    --color-text-light: #e0e0e0; /* Texto claro */
+    --color-text-dark: #121212;
+    --font-main: 'Poppins', sans-serif;
+}
+
+/* Reset Básico e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-dark-bg);
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilização de Seções */
+.section-padding {
+    padding: 80px 0;
+}
+
+.bg-darker {
+    background-color: var(--color-dark-bg-alt);
+}
+
+/* Títulos e Destaques */
+h2 {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.highlight {
+    color: var(--color-primary);
+    font-size: 1.2em;
+}
+
+/* ========================================= */
+/* 1. NAVBAR */
+/* ========================================= */
+#navbar {
+    background-color: rgba(18, 18, 18, 0.95); /* Quase transparente */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 188, 212, 0.1);
+    padding: 15px 0;
+}
+
+#navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+}
+
+#navbar nav ul {
+    display: flex;
+    list-style: none;
+}
+
+#navbar nav li a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: color 0.3s, background-color 0.3s;
+    font-weight: 600;
+}
+
+#navbar nav li a:hover {
+    color: var(--color-primary);
+    background-color: rgba(0, 188, 212, 0.1);
+    border-radius: 5px;
+}
+
+/* ========================================= */
+/* 2. HERO SECTION (RESUMO) */
+/* ========================================= */
+#resumo {
+    padding: 100px 0 80px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    /* Não aplicamos background diferente pois o body já é escuro, mas vamos reforçar o container */
+}
+
+.hero-content {
+    flex: 3;
+}
+
+.profile-pic {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-pic img {
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid var(--color-primary);
+    transition: transform 0.5s;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin: 10px 0 15px;
+    color: #fff;
+}
+
+.title-subtitle {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    font-weight: 400;
+}
+
+.summary-text {
+    max-width: 800px;
+    margin: 30px 0;
+    font-size: 1.1rem;
+    color: #b0b0b0;
+}
+
+/* Botões CTA */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-right: 15px;
+}
+
+.primary-btn {
+    background-color: var(--color-primary);
+    color: var(--color-dark-bg);
+    border: 2px solid var(--color-primary);
+}
+
+.primary-btn:hover {
+    background-color: #008ba3; /* Um pouco mais escuro */
+    transform: translateY(-3px);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.secondary-btn:hover {
+    background-color: var(--color-primary);
+    color: var(--color-dark-bg);
+    transform: translateY(-3px);
+}
+
+.large-btn {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+}
+
+
+/* ========================================= */
+/* 3. TIMELINE (EXPERIÊNCIA) */
+/* ========================================= */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+/* Linha vertical central */
+.timeline::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: var(--color-primary);
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: flex-end; /* Default para alinhar à direita, será ajustado por media query */
+    margin-bottom: 60px;
+    position: relative;
+    width: 100%;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -11px; /* Ajuste para ficar na linha central */
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    border: 3px solid var(--color-dark-bg);
+    z-index: 1;
+}
+
+.timeline-content {
+    background: var(--color-dark-bg-alt);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    flex-basis: calc(50% - 40px); /* Ajusta o espaço entre os itens */
+    transition: transform 0.3s;
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateY(-5px);
+}
+
+.timeline-item.right {
+    justify-content: flex-start;
+}
+
+.timeline-item.right .timeline-content {
+    margin-left: calc(50% + 20px); /* Empurra o conteúdo para o lado direito */
+}
+
+.timeline-item.left {
+    justify-content: flex-end;
+}
+
+.timeline-item.left .timeline-content {
+    margin-right: calc(50% + 20px); /* Empurra o conteúdo para o lado esquerdo */
+}
+
+.timeline-content h3 {
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.company-name {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    margin-bottom: 15px;
+}
+
+.tech-used {
+    list-style: none;
+    padding: 10px 0 0;
+    border-top: 1px solid #333;
+    margin-top: 15px;
+    color: #a0a0a0;
+}
+.tech-used li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    background-color: #2c2c44;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* ========================================= */
+/* 4. SKILLS (HABILIDADES) */
+/* ========================================= */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.skill-card {
+    background: var(--color-dark-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border-left: 4px solid var(--color-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 188, 212, 0.2);
+}
+
+.skill-card h3 {
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+/* Barras de Habilidade */
+.skill-bar-container {
+    height: 10px;
+    background-color: #3a3a3a;
+    border-radius: 5px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.skill-bar {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: 5px;
+    transition: width 1.5s ease-out;
+}
+
+
+/* ========================================= */
+/* 5. EDUCAÇÃO E CONTATO */
+/* ========================================= */
+.education-item {
+    background: var(--color-dark-bg-alt);
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--color-secondary);
+    transition: box-shadow 0.3s;
+}
+
+.education-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.education-item h3 {
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+.institution {
+    font-weight: 600;
+    color: #b0b0b0;
+}
+
+.periodo {
+    font-style: italic;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+/* CTA Final */
+.cta-final {
+    text-align: center;
+    padding: 100px 0;
+    background-color: #0a0a1a; /* Um pouco mais escuro que o bg-darker */
+}
+.cta-final h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+.cta-final .subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    color: #b0b0b0;
+}
+
+.social-links a {
+    color: var(--color-primary);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+.social-links a:hover {
+    color: #ffffff;
+}
+
+/* ========================================= */
+/* FOOTER */
+/* ========================================= */
+footer {
+    background-color: #080812;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #222;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* ========================================= */
+/* RESPONSIVIDADE (Mobile First Approach) */
+/* ========================================= */
+@media (max-width: 1024px) {
+    /* Navbar */
+    #navbar .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    #navbar nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    #navbar nav li a {
+        padding: 8px 10px;
+    }
+
+    /* Hero */
+    #resumo {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-content {
+        order: 1;
+    }
+    .profile-pic {
+        order: -1;
+        margin-bottom: 30px;
+    }
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+    .title-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    /* Timeline */
+    .timeline-item {
+        flex-direction: column !important; /* Remove layout lateral */
+        margin-bottom: 30px;
+    }
+    .timeline-item.left .timeline-content, 
+    .timeline-item.right .timeline-content {
+        margin: 0; /* Remove margem lateral em telas menores */
+        width: 100%;
+        padding-left: 20px; /* Padding para simular um offset */
+        border-left: 3px solid var(--color-primary);
+    }
+    .timeline-dot {
+        /* O dot centralizado funciona bem se o item for de coluna */
+        left: -8px; 
+        transform: translateX(-50%);
+    }
+    
+    /* Skills */
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
