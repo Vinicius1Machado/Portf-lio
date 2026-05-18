@@ -13,7 +13,7 @@ const emailSubject = "Contato profissional via portfólio";
 const emailBody = `Olá, Vinicius.
 
 Vi sua apresentação profissional e gostaria de conversar sobre uma oportunidade em tecnologia.`;
-const emailHref = `mailto:${contact.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const assetPath = (path: string) => `${basePath}${path.replace(/^\//, "")}`;
 const resumePath = assetPath("curriculo-vinicius-costa-ad.pdf");
@@ -168,6 +168,8 @@ const skillGroups = [
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href={emailHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 data-email-link
                 data-email={contact.email}
                 class="command-button command-button-primary shadow-signal focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-void"
@@ -188,6 +190,8 @@ const skillGroups = [
               <a
                 class="command-pill px-3 py-2 hover:border-cyan-300/60 hover:text-cyan-100"
                 href={emailHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 data-email-link
                 data-email={contact.email}
               >
@@ -333,6 +337,8 @@ const skillGroups = [
             <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
                 href={emailHref}
+                target="_blank"
+                rel="noopener noreferrer"
                 data-email-link
                 data-email={contact.email}
                 class="inline-flex min-h-12 items-center justify-center rounded-md border border-cyan-300/60 bg-cyan-300 px-5 text-sm font-black text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-void"
@@ -378,7 +384,16 @@ const skillGroups = [
       };
 
       emailLinks.forEach((link) => {
-        link.addEventListener("click", () => {
+        link.addEventListener("click", (e) => {
+          if (link.href.includes("mail.google.com")) {
+            e.preventDefault();
+            const width = 600;
+            const height = 650;
+            const left = window.screenX + (window.outerWidth - width) / 2;
+            const top = window.screenY + (window.outerHeight - height) / 2;
+            window.open(link.href, "gmail_popup", `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`);
+          }
+
           const email = link.dataset.email;
           if (email && navigator.clipboard?.writeText) {
             navigator.clipboard.writeText(email).then(showEmailFeedback).catch(showEmailFeedback);
