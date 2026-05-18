@@ -130,31 +130,36 @@ const skillGroups = [
 
     <div class="site-shell">
       <header class="glass-nav fixed inset-x-0 top-0 z-50">
-        <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-          <a href="#inicio" class="text-sm font-black uppercase tracking-[0.18em] text-slate-100">
-            Vinicius Costa
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
+          <a href="#inicio" class="brand-mark text-sm font-black uppercase tracking-[0.08em] text-slate-100">
+            <span>VINICIUS_COSTA</span>
           </a>
-          <nav class="hidden items-center gap-7 text-sm font-semibold text-slate-300 md:flex" aria-label="Navegação principal">
-            <a class="signal-link hover:text-cyan-200" href="#experiencia">Experiência</a>
-            <a class="signal-link hover:text-cyan-200" href="#habilidades">Habilidades</a>
-            <a class="signal-link hover:text-cyan-200" href="#formacao">Formação</a>
-            <a class="signal-link hover:text-cyan-200" href="#contato">Contato</a>
+          <span class="terminal-prompt hidden border-l border-cyan-400/30 pl-5 lg:inline-flex">~/portfolio/data_</span>
+          <nav class="hidden items-center gap-3 text-xs font-bold uppercase text-slate-300 md:flex" aria-label="Navegação principal">
+            <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#experiencia">Experiência</a>
+            <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#habilidades">Skills</a>
+            <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#contato">Contato</a>
           </nav>
+          <a
+            href={resumePath}
+            download
+            class="command-pill hidden px-5 py-2 text-xs font-black uppercase text-slate-100 hover:border-lime-300/60 hover:text-lime-100 sm:inline-flex"
+          >
+            CV.pdf
+          </a>
         </div>
       </header>
 
       <main id="inicio">
-        <section class="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-12 px-5 pb-20 pt-28 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:pt-32">
+        <section class="mx-auto grid min-h-[92svh] max-w-7xl items-center gap-12 px-5 pb-20 pt-32 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:pt-32">
           <div class="max-w-3xl">
-            <p class="section-kicker mb-5">Apresentação profissional</p>
-            <h1 class="text-balance text-4xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
-              {contact.name}
+            <p class="status-badge mb-8">profile online v2.4</p>
+            <h1 class="terminal-title text-balance text-4xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+              Vinicius Costa
+              <span class="terminal-gradient">Data Engineering.</span>
             </h1>
-            <p class="mt-6 max-w-2xl text-xl font-semibold leading-8 text-cyan-100 sm:text-2xl">
-              Analista de Dados e Automação com foco em SQL, ETL/ELT, Python, Power BI e integração de sistemas.
-            </p>
-            <p class="mt-5 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-              Atuo na análise, engenharia e qualidade de dados em ambientes corporativos críticos, com experiência nacional e internacional em migrações, pipelines, automações e apoio técnico a decisões de negócio.
+            <p class="terminal-copy mt-8 max-w-2xl text-base leading-8 sm:text-lg">
+              Analista de Dados e Automação focado em SQL, ETL/ELT, Python, Power BI e integração de sistemas para ambientes corporativos críticos.
             </p>
 
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -162,46 +167,67 @@ const skillGroups = [
                 href={emailHref}
                 data-email-link
                 data-email={contact.email}
-                class="inline-flex min-h-12 items-center justify-center rounded-md border border-cyan-300/60 bg-cyan-300 px-5 text-sm font-black text-slate-950 shadow-signal transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-void"
+                class="command-button command-button-primary shadow-signal focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-void"
               >
-                Falar por e-mail
+                [ ENVIAR_EMAIL ] &gt;
               </a>
               <a
                 href={resumePath}
                 download
-                class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-500/50 bg-slate-950/40 px-5 text-sm font-extrabold text-slate-100 transition hover:border-amber-200/80 hover:text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:ring-offset-2 focus:ring-offset-void"
+                class="command-button command-button-secondary focus:outline-none focus:ring-2 focus:ring-amber-200 focus:ring-offset-2 focus:ring-offset-void"
               >
-                Baixar currículo
+                &gt; download_cv
               </a>
             </div>
 
-            <div class="mt-8 flex flex-wrap gap-3 text-sm text-slate-300">
-              <span class="rounded-md border border-slate-600/60 bg-slate-950/50 px-3 py-2">{contact.location}</span>
+            <div class="mt-8 flex flex-wrap gap-3 text-xs text-slate-300">
+              <span class="command-pill px-3 py-2">{contact.location}</span>
               <a
-                class="rounded-md border border-slate-600/60 bg-slate-950/50 px-3 py-2 hover:border-cyan-300/60 hover:text-cyan-100"
+                class="command-pill px-3 py-2 hover:border-cyan-300/60 hover:text-cyan-100"
                 href={emailHref}
                 data-email-link
                 data-email={contact.email}
               >
                 {contact.email}
               </a>
-              <a class="rounded-md border border-slate-600/60 bg-slate-950/50 px-3 py-2 hover:border-cyan-300/60 hover:text-cyan-100" href={contact.phoneHref}>
+              <a class="command-pill px-3 py-2 hover:border-cyan-300/60 hover:text-cyan-100" href={contact.phoneHref}>
                 {contact.phone}
               </a>
             </div>
           </div>
 
-          <aside class="relative" aria-label="Foto e destaques profissionais">
-            <div class="profile-frame mx-auto max-w-[25rem] p-4">
-              <img
-                src={profileImagePath}
-                alt="Foto profissional de Vinicius Oliveira Machado da Costa"
-                class="aspect-square w-full rounded-md object-cover"
-                loading="eager"
-              />
+          <aside class="grid gap-5" aria-label="Foto e destaques profissionais">
+            <div class="code-window">
+              <div class="window-dots" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <pre><code><span class="code-key">const</span> profile = {"{"}
+  name: <span class="code-value">"Vinicius Costa"</span>,
+  focus: <span class="code-value">"dados + automação"</span>,
+  stack: [<span class="code-value">"SQL"</span>, <span class="code-value">"Python"</span>, <span class="code-value">"Power BI"</span>],
+  pipelines: <span class="code-value">"ETL/ELT"</span>,
+  available: <span class="code-bool">true</span>
+{"}"};</code></pre>
             </div>
 
-            <div class="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            <div class="cosmic-panel grid gap-4 p-4 sm:grid-cols-[8rem_1fr] sm:items-center">
+              <div class="profile-frame p-2">
+                <img
+                  src={profileImagePath}
+                  alt="Foto profissional de Vinicius Oliveira Machado da Costa"
+                  class="aspect-square w-full rounded-md object-cover"
+                  loading="eager"
+                />
+              </div>
+              <div>
+                <p class="text-xl font-black text-white">{contact.name}</p>
+                <p class="mt-2 leading-7 text-cyan-100">Análise de dados, migrações, BI e integrações com foco em qualidade da informação.</p>
+              </div>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-3">
               {highlights.map((highlight) => (
                 <div class="cosmic-panel p-4">
                   <strong class="block text-2xl font-black text-white">{highlight.value}</strong>
