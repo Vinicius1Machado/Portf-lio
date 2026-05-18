@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --border-soft: rgba(148, 163, 184, 0.2);
+  --panel: rgba(7, 17, 31, 0.72);
+  --panel-strong: rgba(8, 20, 36, 0.88);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #02050d;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #02050d;
+  color: #e5edf7;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(2, 5, 13, 0.16), rgba(2, 5, 13, 0.64) 62%, rgba(2, 5, 13, 0.92) 100%),
+    radial-gradient(circle at 18% 22%, rgba(34, 211, 238, 0.11), rgba(2, 5, 13, 0) 26%),
+    radial-gradient(circle at 82% 18%, rgba(247, 201, 72, 0.08), rgba(2, 5, 13, 0) 22%),
+    radial-gradient(ellipse at 50% 0%, rgba(17, 45, 76, 0.46), rgba(2, 5, 13, 0) 60%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.46;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle, rgba(248, 250, 252, 0.82) 0 0.8px, transparent 1.35px),
+    radial-gradient(circle, rgba(103, 232, 249, 0.58) 0 0.75px, transparent 1.25px),
+    radial-gradient(circle, rgba(247, 201, 72, 0.46) 0 0.7px, transparent 1.2px);
+  background-position:
+    18px 34px,
+    120px 80px,
+    64px 150px;
+  background-size:
+    190px 170px,
+    310px 260px,
+    430px 360px;
+  animation: star-drift 120s linear infinite;
+}
+
+#space-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.78;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(103, 232, 249, 0.12), transparent 20%),
+    radial-gradient(circle at 78% 30%, rgba(139, 255, 202, 0.08), transparent 18%),
+    radial-gradient(circle at 52% 72%, rgba(247, 201, 72, 0.06), transparent 22%),
+    radial-gradient(ellipse at top, #102039 0%, #07111f 42%, #02050d 100%);
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.3);
+  color: #f8fafc;
+}
+
+.site-shell {
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes star-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-90px, 70px, 0);
+  }
+}
+
+.glass-nav {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(2, 5, 13, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.cosmic-panel {
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(7, 17, 31, 0.72)),
+    var(--panel);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.24);
+}
+
+.section-kicker {
+  color: #67e8f9;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.profile-frame {
+  position: relative;
+  border: 1px solid rgba(103, 232, 249, 0.32);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.16), rgba(247, 201, 72, 0.08)),
+    rgba(2, 5, 13, 0.74);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
+}
+
+.profile-frame::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(247, 201, 72, 0.22);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -1.62rem;
+  top: 0.34rem;
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 2px solid #22d3ee;
+  border-radius: 999px;
+  background: #02050d;
+  box-shadow: 0 0 24px rgba(34, 211, 238, 0.45);
+}
+
+.timeline-track {
+  border-left: 1px solid rgba(103, 232, 249, 0.28);
+}
+
+.signal-link {
+  position: relative;
+}
+
+.signal-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.28rem;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: #22d3ee;
+  transition: transform 180ms ease;
+}
+
+.signal-link:hover::after,
+.signal-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
