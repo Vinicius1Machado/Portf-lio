@@ -132,29 +132,53 @@ const skillGroups = [
     <title>Apresentação Vinicius Costa</title>
     <meta name="application-name" content="Apresentação Vinicius Costa" />
     <link rel="icon" type="image/svg+xml" href={faviconPath} />
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem("portfolio-theme");
+        if (savedTheme === "light") {
+          document.documentElement.dataset.theme = "light";
+        }
+      } catch {
+        // Keep the dark theme as the default when storage is unavailable.
+      }
+    </script>
   </head>
   <body>
     <canvas id="space-canvas" aria-hidden="true"></canvas>
 
     <div class="site-shell">
       <header class="glass-nav fixed inset-x-0 top-0 z-50">
-        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
-          <a href="#inicio" class="brand-mark text-sm font-black uppercase tracking-[0.08em] text-slate-100">
-            <span>VINICIUS_COSTA</span>
-          </a>
-          <span class="terminal-prompt hidden border-l border-cyan-400/30 pl-5 lg:inline-flex">~/portfolio/data_</span>
-          <nav class="hidden items-center gap-3 text-xs font-bold uppercase text-slate-300 md:flex" aria-label="Navegação principal">
-            <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#experiencia">Experiência</a>
-            <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#habilidades">Skills</a>
-            <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#contato">Contato</a>
-          </nav>
-          <a
-            href={resumePath}
-            download
-            class="command-pill hidden px-5 py-2 text-xs font-black uppercase text-slate-100 hover:border-lime-300/60 hover:text-lime-100 sm:inline-flex"
-          >
-            CV.pdf
-          </a>
+        <div class="mx-auto flex max-w-7xl items-center gap-4 px-5 py-4 lg:px-8">
+          <div class="flex min-w-0 items-center gap-5">
+            <a href="#inicio" class="brand-mark text-sm font-black uppercase tracking-[0.08em] text-slate-100">
+              <span>VINICIUS_COSTA</span>
+            </a>
+            <span class="terminal-prompt hidden border-l border-cyan-400/30 pl-5 lg:inline-flex">~/portfolio/data_</span>
+          </div>
+
+          <div class="ml-auto flex items-center gap-4 sm:gap-5">
+            <nav class="hidden items-center gap-3 text-xs font-bold uppercase text-slate-300 md:flex" aria-label="Navegação principal">
+              <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#experiencia">Experiência</a>
+              <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#habilidades">Skills</a>
+              <a class="command-pill px-4 py-2 hover:border-cyan-300/50 hover:text-cyan-100" href="#contato">Contato</a>
+            </nav>
+            <a
+              href={resumePath}
+              download
+              class="command-pill hidden px-5 py-2 text-xs font-black uppercase text-slate-100 hover:border-lime-300/60 hover:text-lime-100 sm:inline-flex"
+            >
+              CV.pdf
+            </a>
+            <button
+              type="button"
+              class="theme-toggle"
+              data-theme-toggle
+              aria-label="Alternar para tema claro"
+              aria-pressed="false"
+            >
+              <span class="theme-toggle-icon" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -464,6 +488,95 @@ const skillGroups = [
     </div>
 
     <script>
+      const themeToggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+      const pageMotionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let themeTransitionTimeout: number | undefined;
+
+      const setTheme = (theme: "dark" | "light", shouldAnimate = false) => {
+        if (shouldAnimate) {
+          document.documentElement.classList.add("theme-changing");
+          window.clearTimeout(themeTransitionTimeout);
+          themeTransitionTimeout = window.setTimeout(() => {
+            document.documentElement.classList.remove("theme-changing");
+          }, 620);
+        }
+
+        document.documentElement.dataset.theme = theme === "light" ? "light" : "";
+        if (theme === "dark") {
+          document.documentElement.removeAttribute("data-theme");
+        }
+
+        if (themeToggle) {
+          themeToggle.setAttribute("aria-pressed", String(theme === "light"));
+          themeToggle.setAttribute("aria-label", theme === "light" ? "Alternar para tema escuro" : "Alternar para tema claro");
+        }
+
+        try {
+          localStorage.setItem("portfolio-theme", theme);
+        } catch {
+          // Theme still changes for the current visit.
+        }
+      };
+
+      const currentTheme = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      setTheme(currentTheme);
+
+      themeToggle?.addEventListener("click", () => {
+        const nextTheme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+        setTheme(nextTheme, true);
+      });
+
+      window.requestAnimationFrame(() => {
+        document.documentElement.classList.add("site-ready");
+      });
+
+      const revealTargets = [
+        ...document.querySelectorAll<HTMLElement>(
+          "main section > div, main section > aside, main .cosmic-panel, main .code-window, main .status-badge, main .terminal-title, main .terminal-copy, main .command-button, main .timeline-item, main [class*='grid'] > span"
+        )
+      ];
+
+      revealTargets.forEach((element, index) => {
+        element.classList.add("reveal-item");
+
+        if (element.matches("main section > div:first-child, main .status-badge, main .terminal-title, main .terminal-copy")) {
+          element.classList.add("reveal-from-left");
+        }
+
+        if (element.matches("main section > aside, main .code-window")) {
+          element.classList.add("reveal-from-right");
+        }
+
+        if (element.matches("main .cosmic-panel, main .command-button, main [class*='grid'] > span")) {
+          element.classList.add("reveal-scale");
+        }
+
+        const section = element.closest("section");
+        const sectionItems = section ? [...section.querySelectorAll<HTMLElement>(".reveal-item")] : revealTargets;
+        const sectionIndex = Math.max(0, sectionItems.indexOf(element));
+        element.style.setProperty("--reveal-delay", `${Math.min(sectionIndex * 70, 420)}ms`);
+      });
+
+      if (pageMotionPreference.matches) {
+        revealTargets.forEach((element) => element.classList.add("is-visible"));
+      } else {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            rootMargin: "0px 0px -12% 0px",
+            threshold: 0.12
+          }
+        );
+
+        revealTargets.forEach((element) => revealObserver.observe(element));
+      }
+
       const setupModal = (modalId: string, triggerAttr: string) => {
         const triggers = document.querySelectorAll<HTMLAnchorElement>(`[${triggerAttr}]`);
         const modal = document.getElementById(modalId);
@@ -548,6 +661,8 @@ const skillGroups = [
           size: number;
           phase: number;
           speed: number;
+          vx: number;
+          vy: number;
         };
 
         type Asteroid = {
@@ -562,16 +677,24 @@ const skillGroups = [
           points: number[];
         };
 
+        type ShootingStar = {
+          x: number;
+          y: number;
+          length: number;
+          speed: number;
+          angle: number;
+          life: number;
+          maxLife: number;
+          width: number;
+        };
+
         if (ctx) {
           let width = 0;
           let height = 0;
           let stars: Star[] = [];
           let asteroids: Asteroid[] = [];
-          const pointer = {
-            x: 0,
-            y: 0,
-            active: false
-          };
+          let shootingStars: ShootingStar[] = [];
+          let nextShootingStarAt = 0;
 
           const random = (min: number, max: number) => Math.random() * (max - min) + min;
 
@@ -581,9 +704,9 @@ const skillGroups = [
               x: random(0, width),
               y: random(0, height),
               r: random(5, 12),
-              vx: random(-0.055, 0.055),
-              vy: random(0.025, 0.11),
-              spin: random(-0.0024, 0.0024),
+              vx: random(-0.09, 0.09),
+              vy: random(0.045, 0.16),
+              spin: random(-0.0034, 0.0034),
               phase: random(0, Math.PI * 2),
               tone: random(185, 215),
               points: Array.from({ length: totalPoints }, () => random(0.72, 1.18))
@@ -601,10 +724,14 @@ const skillGroups = [
               z: random(0.2, 1),
               size: random(0.45, 1.45),
               phase: random(0, Math.PI * 2),
-              speed: random(0.0008, 0.0022)
+              speed: random(0.0008, 0.0022),
+              vx: random(-0.014, 0.014),
+              vy: random(0.016, 0.045)
             }));
 
             asteroids = Array.from({ length: asteroidCount }, buildAsteroid);
+            shootingStars = [];
+            nextShootingStarAt = random(900, 2200);
           };
 
           const resize = () => {
@@ -620,23 +747,11 @@ const skillGroups = [
           };
 
           const drawAsteroid = (asteroid: Asteroid, time: number) => {
-            const targetX = pointer.active ? pointer.x : width * 0.5;
-            const targetY = pointer.active ? pointer.y : height * 0.42;
-            const dx = asteroid.x - targetX;
-            const dy = asteroid.y - targetY;
-            const distance = Math.hypot(dx, dy);
+            const isLightTheme = document.documentElement.dataset.theme === "light";
 
-            if (pointer.active && distance < 170) {
-              const force = (170 - distance) / 170;
-              asteroid.x += (dx / Math.max(distance, 1)) * force * 0.8;
-              asteroid.y += (dy / Math.max(distance, 1)) * force * 0.55;
-            }
-
-            if (!reduceMotion.matches) {
-              asteroid.x += asteroid.vx;
-              asteroid.y += asteroid.vy;
-              asteroid.phase += asteroid.spin;
-            }
+            asteroid.x += asteroid.vx;
+            asteroid.y += asteroid.vy;
+            asteroid.phase += asteroid.spin;
 
             if (asteroid.y > height + 24) asteroid.y = -24;
             if (asteroid.x < -24) asteroid.x = width + 24;
@@ -658,67 +773,117 @@ const skillGroups = [
               }
             });
             ctx.closePath();
-            ctx.shadowColor = "rgba(103, 232, 249, 0.1)";
-            ctx.shadowBlur = 8;
-            ctx.fillStyle = `hsla(${asteroid.tone}, 24%, 62%, 0.25)`;
-            ctx.strokeStyle = "rgba(103, 232, 249, 0.24)";
+            ctx.shadowColor = isLightTheme ? "rgba(79, 70, 229, 0.18)" : "rgba(103, 232, 249, 0.1)";
+            ctx.shadowBlur = isLightTheme ? 14 : 8;
+            ctx.fillStyle = isLightTheme ? `hsla(${asteroid.tone + 36}, 58%, 48%, 0.16)` : `hsla(${asteroid.tone}, 24%, 62%, 0.25)`;
+            ctx.strokeStyle = isLightTheme ? "rgba(49, 46, 129, 0.28)" : "rgba(103, 232, 249, 0.24)";
             ctx.lineWidth = 1;
             ctx.fill();
             ctx.stroke();
             ctx.restore();
           };
 
-          const draw = (time = 0) => {
-            ctx.clearRect(0, 0, width, height);
+          const createShootingStar = (): ShootingStar => ({
+            x: random(width * 0.08, width * 0.92),
+            y: random(-40, height * 0.36),
+            length: random(90, 170),
+            speed: random(2.6, 4.2),
+            angle: random(Math.PI * 0.68, Math.PI * 0.76),
+            life: 0,
+            maxLife: random(48, 76),
+            width: random(1.1, 1.8)
+          });
 
-            const parallaxX = (pointer.x / Math.max(width, 1) - 0.5) * 14;
-            const parallaxY = (pointer.y / Math.max(height, 1) - 0.5) * 14;
+          const drawShootingStars = (time: number) => {
+            if (document.documentElement.dataset.theme === "light") return;
+
+            if (time > nextShootingStarAt && shootingStars.length < 3) {
+              shootingStars.push(createShootingStar());
+              nextShootingStarAt = time + random(1600, 4200);
+            }
+
+            shootingStars = shootingStars.filter((meteor) => meteor.life < meteor.maxLife);
+
+            for (const meteor of shootingStars) {
+              meteor.life += 1;
+              meteor.x += Math.cos(meteor.angle) * meteor.speed;
+              meteor.y += Math.sin(meteor.angle) * meteor.speed;
+
+              const progress = meteor.life / meteor.maxLife;
+              const alpha = Math.sin(progress * Math.PI) * 0.88;
+              const tailX = meteor.x - Math.cos(meteor.angle) * meteor.length;
+              const tailY = meteor.y - Math.sin(meteor.angle) * meteor.length;
+              const gradient = ctx.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
+
+              gradient.addColorStop(0, `rgba(248, 250, 252, ${alpha})`);
+              gradient.addColorStop(0.18, `rgba(103, 232, 249, ${alpha * 0.52})`);
+              gradient.addColorStop(1, "rgba(103, 232, 249, 0)");
+
+              ctx.save();
+              ctx.lineCap = "round";
+              ctx.strokeStyle = gradient;
+              ctx.lineWidth = meteor.width;
+              ctx.shadowColor = `rgba(103, 232, 249, ${alpha * 0.35})`;
+              ctx.shadowBlur = 14;
+              ctx.beginPath();
+              ctx.moveTo(meteor.x, meteor.y);
+              ctx.lineTo(tailX, tailY);
+              ctx.stroke();
+              ctx.restore();
+            }
+          };
+
+          const draw = (time = 0) => {
+            const isLightTheme = document.documentElement.dataset.theme === "light";
+            ctx.clearRect(0, 0, width, height);
+            const driftX = isLightTheme || reduceMotion.matches ? 0 : Math.sin(time * 0.00005) * 8;
+            const driftY = isLightTheme || reduceMotion.matches ? 0 : Math.cos(time * 0.000045) * 6;
 
             for (const star of stars) {
-              const shimmer = reduceMotion.matches ? 0.54 : 0.34 + Math.sin(time * star.speed + star.phase) * 0.2;
-              const x = star.x + parallaxX * star.z;
-              const y = star.y + parallaxY * star.z;
+              const shimmer = 0.34 + Math.sin(time * star.speed + star.phase) * 0.2;
+
+              if (!isLightTheme) {
+                star.x += star.vx * star.z;
+                star.y += star.vy * star.z;
+
+                if (star.y > height + 8) star.y = -8;
+                if (star.x < -8) star.x = width + 8;
+                if (star.x > width + 8) star.x = -8;
+              }
+
+              const drawX = star.x + driftX * star.z;
+              const drawY = star.y + driftY * star.z;
 
               ctx.beginPath();
-              ctx.arc(x, y, star.size * star.z, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(229, 237, 247, ${Math.max(0.18, shimmer)})`;
+              ctx.arc(drawX, drawY, star.size * star.z, 0, Math.PI * 2);
+              ctx.fillStyle = isLightTheme
+                ? `rgba(49, 46, 129, ${Math.max(0.14, shimmer * 0.48)})`
+                : `rgba(229, 237, 247, ${Math.max(0.18, shimmer)})`;
               ctx.fill();
 
               if (star.z > 0.82) {
                 ctx.beginPath();
-                ctx.moveTo(x - star.size * 2, y);
-                ctx.lineTo(x + star.size * 2, y);
-                ctx.strokeStyle = "rgba(103, 232, 249, 0.14)";
+                ctx.moveTo(drawX - star.size * 2, drawY);
+                ctx.lineTo(drawX + star.size * 2, drawY);
+                ctx.moveTo(drawX, drawY - star.size * 2);
+                ctx.lineTo(drawX, drawY + star.size * 2);
+                ctx.strokeStyle = isLightTheme ? "rgba(8, 145, 178, 0.16)" : "rgba(103, 232, 249, 0.14)";
                 ctx.lineWidth = 0.45;
                 ctx.stroke();
               }
             }
 
-            for (const asteroid of asteroids) {
-              drawAsteroid(asteroid, time);
+            if (!isLightTheme) {
+              drawShootingStars(time);
             }
           };
 
           const animate = (time: number) => {
             draw(time);
-            if (!reduceMotion.matches) {
-              window.requestAnimationFrame(animate);
-            }
+            window.requestAnimationFrame(animate);
           };
 
           window.addEventListener("resize", resize);
-          window.addEventListener("pointermove", (event) => {
-            pointer.x = event.clientX;
-            pointer.y = event.clientY;
-            pointer.active = true;
-            if (reduceMotion.matches) draw();
-          });
-          window.addEventListener("pointerleave", () => {
-            pointer.active = false;
-          });
-
-          pointer.x = window.innerWidth * 0.52;
-          pointer.y = window.innerHeight * 0.42;
           resize();
           animate(0);
         }
