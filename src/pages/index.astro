@@ -18,6 +18,7 @@ const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_U
 const assetPath = (path: string) => `${basePath}${path.replace(/^\//, "")}`;
 const resumePath = assetPath("curriculo-vinicius-costa-ad.pdf");
 const profileImagePath = assetPath("vinicius-profile.png");
+const faviconPath = assetPath("favicon.svg");
 
 const highlights = [
   {
@@ -123,7 +124,9 @@ const skillGroups = [
       name="description"
       content="Apresentação profissional de Vinicius Oliveira Machado da Costa, Analista de Dados e Automação com foco em SQL, ETL/ELT, Python, Power BI e integrações."
     />
-    <title>Vinicius Costa | Dados, Automação e Integração</title>
+    <title>Apresentação Vinicius Costa</title>
+    <meta name="application-name" content="Apresentação Vinicius Costa" />
+    <link rel="icon" type="image/svg+xml" href={faviconPath} />
   </head>
   <body>
     <canvas id="space-canvas" aria-hidden="true"></canvas>

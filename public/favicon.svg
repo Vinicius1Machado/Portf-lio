@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Apresentação Vinicius Costa">
+  <rect width="64" height="64" rx="14" fill="#020617"/>
+  <path d="M15 10l24 22-24 22 5-22-5-22z" fill="url(#markGradient)"/>
+  <text x="36" y="40" fill="#f8fafc" font-family="JetBrains Mono, Consolas, monospace" font-size="17" font-weight="800">VC</text>
+  <circle cx="51" cy="14" r="3" fill="#22d3ee"/>
+  <defs>
+    <linearGradient id="markGradient" x1="15" x2="41" y1="10" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8bffca"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+</svg>
