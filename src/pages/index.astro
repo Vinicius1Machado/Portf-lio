@@ -463,30 +463,7 @@ const skillGroups = [
       </div>
     </div>
 
-    <p
-      id="email-feedback"
-      class="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-md border border-cyan-200/40 bg-slate-950/95 px-4 py-3 text-center text-sm font-bold text-cyan-50 opacity-0 shadow-signal transition"
-      role="status"
-      aria-live="polite"
-    >
-      E-mail copiado. Se o aplicativo de e-mail não abrir, cole o endereço onde preferir.
-    </p>
-
     <script>
-      const emailFeedback = document.querySelector<HTMLElement>("#email-feedback");
-      let feedbackTimeout: number | undefined;
-
-      const showEmailFeedback = () => {
-        if (!emailFeedback) return;
-        emailFeedback.classList.remove("opacity-0");
-        emailFeedback.classList.add("opacity-100");
-        window.clearTimeout(feedbackTimeout);
-        feedbackTimeout = window.setTimeout(() => {
-          emailFeedback.classList.remove("opacity-100");
-          emailFeedback.classList.add("opacity-0");
-        }, 4200);
-      };
-
       const setupModal = (modalId: string, triggerAttr: string) => {
         const triggers = document.querySelectorAll<HTMLAnchorElement>(`[${triggerAttr}]`);
         const modal = document.getElementById(modalId);
@@ -511,13 +488,6 @@ const skillGroups = [
           trigger.addEventListener("click", (e) => {
             e.preventDefault();
             open();
-            
-            const email = trigger.dataset.email;
-            if (email && navigator.clipboard?.writeText) {
-              navigator.clipboard.writeText(email).then(showEmailFeedback).catch(showEmailFeedback);
-            } else if (triggerAttr.includes("email")) {
-              showEmailFeedback();
-            }
           });
         });
 
