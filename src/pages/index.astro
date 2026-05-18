@@ -13,7 +13,10 @@ const emailSubject = "Contato profissional via portfólio";
 const emailBody = `Olá, Vinicius.
 
 Vi sua apresentação profissional e gostaria de conversar sobre uma oportunidade em tecnologia.`;
-const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+const gmailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${contact.email}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+const outlookHref = `https://outlook.live.com/mail/0/deeplink/compose?to=${contact.email}&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+const defaultMailHref = `mailto:${contact.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const assetPath = (path: string) => `${basePath}${path.replace(/^\//, "")}`;
 const resumePath = assetPath("curriculo-vinicius-costa-ad.pdf");
@@ -167,10 +170,8 @@ const skillGroups = [
 
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href={emailHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-email-link
+                href="#email-modal"
+                data-email-modal-trigger
                 data-email={contact.email}
                 class="command-button command-button-primary shadow-signal focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-void"
               >
@@ -189,10 +190,8 @@ const skillGroups = [
               <span class="command-pill px-3 py-2">{contact.location}</span>
               <a
                 class="command-pill px-3 py-2 hover:border-cyan-300/60 hover:text-cyan-100"
-                href={emailHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-email-link
+                href="#email-modal"
+                data-email-modal-trigger
                 data-email={contact.email}
               >
                 {contact.email}
@@ -336,10 +335,8 @@ const skillGroups = [
             </div>
             <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <a
-                href={emailHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-email-link
+                href="#email-modal"
+                data-email-modal-trigger
                 data-email={contact.email}
                 class="inline-flex min-h-12 items-center justify-center rounded-md border border-cyan-300/60 bg-cyan-300 px-5 text-sm font-black text-slate-950 transition hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-200 focus:ring-offset-2 focus:ring-offset-void"
               >
@@ -358,6 +355,36 @@ const skillGroups = [
       </main>
     </div>
 
+    <div id="email-modal" class="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/80 p-5 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm" aria-hidden="true" role="dialog">
+      <div class="relative w-full max-w-md rounded-xl border border-slate-700/50 bg-slate-900 p-6 shadow-2xl scale-95 transition-transform duration-300" id="email-modal-content">
+        <button id="close-email-modal" class="absolute right-4 top-4 text-slate-400 hover:text-white focus:outline-none" aria-label="Fechar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        <h3 class="text-xl font-bold text-white mb-2">Enviar e-mail</h3>
+        <p class="text-slate-400 text-sm mb-6">Escolha como deseja enviar sua mensagem:</p>
+        
+        <div class="flex flex-col gap-3">
+          <a
+            href={gmailHref}
+            id="gmail-option"
+            class="flex items-center gap-3 rounded-lg border border-slate-700 bg-slate-800/50 p-4 transition-colors hover:border-cyan-400/50 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            <svg class="w-6 h-6 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-.4 4.25l-7.07 4.42c-.32.2-.74.2-1.06 0L4.4 8.25c-.25-.16-.4-.43-.4-.72 0-.67.73-1.07 1.3-.72L12 11l6.7-4.19c.57-.35 1.3.05 1.3.72 0 .29-.15.56-.4.72z"/></svg>
+            <span class="font-medium text-white">Gmail</span>
+          </a>
+          
+          <a
+            href={outlookHref}
+            id="outlook-option"
+            class="flex items-center gap-3 rounded-lg border border-slate-700 bg-slate-800/50 p-4 transition-colors hover:border-cyan-400/50 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+          >
+            <svg class="w-6 h-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+            <span class="font-medium text-white">Outlook</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <p
       id="email-feedback"
       class="pointer-events-none fixed bottom-5 left-1/2 z-[60] -translate-x-1/2 rounded-md border border-cyan-200/40 bg-slate-950/95 px-4 py-3 text-center text-sm font-bold text-cyan-50 opacity-0 shadow-signal transition"
@@ -369,7 +396,13 @@ const skillGroups = [
 
     <script>
       const emailFeedback = document.querySelector<HTMLElement>("#email-feedback");
-      const emailLinks = document.querySelectorAll<HTMLAnchorElement>("[data-email-link]");
+      const modalTriggers = document.querySelectorAll<HTMLAnchorElement>("[data-email-modal-trigger]");
+      const modal = document.getElementById("email-modal");
+      const modalContent = document.getElementById("email-modal-content");
+      const closeBtn = document.getElementById("close-email-modal");
+      const gmailOption = document.getElementById("gmail-option");
+      const outlookOption = document.getElementById("outlook-option");
+      
       let feedbackTimeout: number | undefined;
 
       const showEmailFeedback = () => {
@@ -383,23 +416,50 @@ const skillGroups = [
         }, 4200);
       };
 
-      emailLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          if (link.href.includes("mail.google.com")) {
-            e.preventDefault();
-            const width = 600;
-            const height = 650;
-            const left = window.screenX + (window.outerWidth - width) / 2;
-            const top = window.screenY + (window.outerHeight - height) / 2;
-            window.open(link.href, "gmail_popup", `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`);
-          }
+      const openModal = () => {
+        if (!modal || !modalContent) return;
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modalContent.classList.remove("scale-95");
+        modalContent.classList.add("scale-100");
+      };
 
-          const email = link.dataset.email;
+      const closeModal = () => {
+        if (!modal || !modalContent) return;
+        modal.classList.add("opacity-0", "pointer-events-none");
+        modalContent.classList.remove("scale-100");
+        modalContent.classList.add("scale-95");
+      };
+
+      modalTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          openModal();
+          
+          const email = trigger.dataset.email;
           if (email && navigator.clipboard?.writeText) {
             navigator.clipboard.writeText(email).then(showEmailFeedback).catch(showEmailFeedback);
           } else {
             showEmailFeedback();
           }
+        });
+      });
+
+      if (closeBtn) closeBtn.addEventListener("click", closeModal);
+      if (modal) {
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeModal();
+        });
+      }
+
+      document.querySelectorAll('#email-modal a').forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const width = 600;
+          const height = 650;
+          const left = window.screenX + (window.outerWidth - width) / 2;
+          const top = window.screenY + (window.outerHeight - height) / 2;
+          window.open((e.currentTarget as HTMLAnchorElement).href, "email_popup", `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,status=yes`);
+          closeModal();
         });
       });
 
