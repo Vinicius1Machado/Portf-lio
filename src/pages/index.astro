@@ -21,18 +21,18 @@ const linkedinHref = "https://www.linkedin.com/messaging/compose?recipient=vin%C
 const defaultMailHref = `mailto:${contact.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const assetPath = (path: string) => `${basePath}${path.replace(/^\//, "")}`;
-const resumePath = assetPath("curriculo-vinicius-costa-ad.pdf");
+const resumePath = assetPath("curriculo-vinicius-costa-ap.pdf");
 const profileImagePath = assetPath("vinicius-profile.png");
 const faviconPath = assetPath("favicon.svg");
 
 const highlights = [
   {
-    value: "3+ anos",
-    label: "em dados, implantação de sistemas e automação"
+    value: "Implantação",
+    label: "parametrização, requisitos e suporte a usuários"
   },
   {
     value: "ETL/ELT",
-    label: "pipelines, integrações e migrações de larga escala"
+    label: "migrações, integração e consolidação de dados"
   },
   {
     value: "SQL avançado",
@@ -45,6 +45,9 @@ const stack = [
   "Python",
   "VBA",
   "Power BI",
+  "Parametrização",
+  "Requisitos",
+  "Processos",
   "APIs REST/SOAP",
   "JSON/XML",
   "n8n",
@@ -56,20 +59,22 @@ const stack = [
 
 const experiences = [
   {
-    role: "Analista de Dados",
+    role: "Analista de Implantação",
     company: "PineAxe",
     place: "Lisboa, Portugal",
     period: "10/2025 - 05/2026",
     points: [
-      "Análise, tratamento e validação de dados para elevar qualidade, consistência e confiabilidade das informações.",
-      "Desenvolvimento de consultas SQL para extração, transformação, cruzamento e consolidação de dados.",
-      "Criação de dashboards, relatórios e indicadores em Power BI para apoio à decisão.",
-      "Automação de processos analíticos com Python e manutenção de rotinas ETL/ELT com múltiplas fontes.",
-      "Consumo e tratamento de dados via APIs e arquivos JSON, XML, CSV e Excel."
+      "Implantação e parametrização de sistemas corporativos conforme regras de negócio e necessidades do cliente.",
+      "Levantamento de requisitos, mapeamento de processos e acompanhamento de projetos de implantação.",
+      "Execução de migração, tratamento e validação de dados em ambientes Oracle e PostgreSQL.",
+      "Desenvolvimento e operação de processos ETL/ELT para integração e consolidação de dados.",
+      "Implementação de integrações via APIs REST/SOAP e manipulação de dados JSON/XML.",
+      "Criação de dashboards e relatórios gerenciais em Power BI.",
+      "Treinamentos, apresentações, suporte aos usuários e melhoria contínua no pós-implantação."
     ]
   },
   {
-    role: "Analista de Implantação de Sistemas",
+    role: "Consultor de Implantação de Sistemas",
     company: "Benner Sistemas",
     place: "Brasília, DF",
     period: "09/2023 - 09/2025",
@@ -77,7 +82,7 @@ const experiences = [
       "Planejamento e execução de migrações massivas de dados com foco em integridade e validação com clientes.",
       "Desenvolvimento de soluções em VBA e Python para automação de processos e processamento em massa.",
       "Manipulação avançada de bancos SQL para criação de views, procedures, triggers, functions e relatórios.",
-      "Mapeamento de processos de negócio em saúde suplementar, ERP, CRM e treinamento técnico de usuários."
+      "Mapeamento de processos de negócio na saúde suplementar, parametrização de sistemas, ERP, CRM e treinamento técnico de usuários."
     ]
   },
   {
@@ -96,26 +101,32 @@ const skillGroups = [
   {
     title: "Bancos de dados",
     description:
-      "SQL avançado com foco em performance, modelagem operacional e manipulação de grandes volumes.",
-    items: ["T-SQL", "PL/SQL", "PLpgSQL", "Oracle", "SQL Server", "PostgreSQL", "MySQL", "Índices", "Triggers"]
+      "SQL avançado para performance, parametrizações, modelagem operacional e manipulação de grandes volumes.",
+    items: ["T-SQL", "PL/SQL", "PLpgSQL", "Oracle", "SQL Server", "PostgreSQL", "MySQL", "Procedures", "Functions", "Triggers", "Índices"]
   },
   {
     title: "Engenharia e integração",
     description:
-      "Pipelines, migrações massivas e integrações entre sistemas corporativos por APIs e arquivos.",
-    items: ["ETL/ELT", "REST", "SOAP", "JSON", "XML", "CSV", "Excel", "n8n"]
+      "Pipelines, migrações massivas e integrações entre sistemas corporativos por APIs, arquivos e orquestração.",
+    items: ["ETL/ELT", "REST", "SOAP", "JSON", "XML", "CSV", "Excel", "n8n", "Migração de dados"]
   },
   {
-    title: "Automação e análise",
+    title: "Programação e automação",
     description:
-      "Redução de tarefas manuais, criação de rotinas confiáveis e suporte a decisões com indicadores.",
-    items: ["Python", "VBA", "Power BI", "Dashboards", "Relatórios", "Git/GitHub"]
+      "Automação de processos, validação de dados, redução de tarefas manuais e versionamento de rotinas.",
+    items: ["Python", "VBA", "Git/GitHub", "Prompt Engineering", "Validação de dados", "Power BI"]
   },
   {
-    title: "IA e métodos",
+    title: "IA e ferramentas",
     description:
-      "Uso de IA e engenharia de prompt para ganho de produtividade técnica, anomalias e ETL.",
-    items: ["IA aplicada", "Prompt Engineering", "Scrum", "Kanban", "VS Code", "MS Office"]
+      "Uso de IA para produtividade técnica, análise de anomalias, apoio a ETL e tratamento de dados.",
+    items: ["IA aplicada", "Modelagem de dados", "Dashboards", "Relatórios", "VS Code", "MS Office"]
+  },
+  {
+    title: "Métodos e implantação",
+    description:
+      "Atuação colaborativa com levantamento de requisitos, mapeamento de processos e entregas iterativas.",
+    items: ["Scrum", "Kanban", "Requisitos", "Mapeamento de processos", "Suporte pós-implantação", "Treinamentos"]
   }
 ];
 ---
@@ -127,7 +138,7 @@ const skillGroups = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Apresentação profissional de Vinicius Oliveira Machado da Costa, Analista de Dados e Automação com foco em SQL, ETL/ELT, Python, Power BI e integrações."
+      content="Apresentação profissional de Vinicius Oliveira Machado da Costa, Especialista em Implantação e Dados com foco em parametrização de sistemas, migração de dados, ETL/ELT, SQL, APIs e automação."
     />
     <title>Apresentação Vinicius Costa</title>
     <meta name="application-name" content="Apresentação Vinicius Costa" />
@@ -188,10 +199,10 @@ const skillGroups = [
             <p class="status-badge mb-8">profile online v2.4</p>
             <h1 class="terminal-title text-balance text-4xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
               Vinicius Costa
-              <span class="terminal-gradient">Data Engineering.</span>
+              <span class="terminal-gradient">Implantação & Dados.</span>
             </h1>
             <p class="terminal-copy mt-8 max-w-2xl text-base leading-8 sm:text-lg">
-              Analista de Dados e Automação focado em SQL, ETL/ELT, Python, Power BI e integração de sistemas para ambientes corporativos críticos.
+              Especialista em Implantação e Dados, com atuação em parametrização de sistemas, migração de dados, integrações e automação de processos em ambientes corporativos críticos.
             </p>
 
             <div class="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -237,8 +248,8 @@ const skillGroups = [
               </div>
               <pre><code><span class="code-key">const</span> profile = {"{"}
   name: <span class="code-value">"Vinicius Costa"</span>,
-  focus: <span class="code-value">"dados + automação"</span>,
-  stack: [<span class="code-value">"SQL"</span>, <span class="code-value">"Python"</span>, <span class="code-value">"Power BI"</span>],
+  focus: <span class="code-value">"implantação + dados"</span>,
+  stack: [<span class="code-value">"SQL"</span>, <span class="code-value">"Python"</span>, <span class="code-value">"APIs"</span>],
   pipelines: <span class="code-value">"ETL/ELT"</span>,
   available: <span class="code-bool">true</span>
 {"}"};</code></pre>
@@ -255,7 +266,7 @@ const skillGroups = [
               </div>
               <div>
                 <p class="text-xl font-black text-white">{contact.name}</p>
-                <p class="mt-2 leading-7 text-cyan-100">Análise de dados, migrações, BI e integrações com foco em qualidade da informação.</p>
+                <p class="mt-2 leading-7 text-cyan-100">Parametrização de sistemas, migrações, ETL/ELT, integrações e suporte às áreas de negócio.</p>
               </div>
             </div>
 
@@ -283,9 +294,9 @@ const skillGroups = [
         <section id="experiencia" class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div class="max-w-3xl">
             <p class="section-kicker">Histórico profissional</p>
-            <h2 class="mt-3 text-3xl font-black text-white sm:text-5xl">Experiência orientada a dados, automação e entrega.</h2>
+            <h2 class="mt-3 text-3xl font-black text-white sm:text-5xl">Experiência em implantação, dados e entrega.</h2>
             <p class="mt-5 text-lg leading-8 text-slate-300">
-              Uma trajetória conectando banco de dados, sistemas corporativos, operação técnica e indicadores para transformar informação em ação.
+              Uma trajetória conectando sistemas corporativos, requisitos, banco de dados, operação técnica e indicadores para transformar informação em ação.
             </p>
           </div>
 
@@ -356,7 +367,7 @@ const skillGroups = [
               <p class="section-kicker">Contato</p>
               <h2 class="mt-3 text-3xl font-black text-white sm:text-4xl">Disponível para conversar sobre oportunidades em tecnologia.</h2>
               <p class="mt-4 max-w-2xl leading-8 text-slate-300">
-                Interesse em desafios envolvendo dados, BI, automação, integração de sistemas e qualidade da informação.
+                Interesse em desafios envolvendo implantação de sistemas, dados, BI, automação, integrações e qualidade da informação.
               </p>
             </div>
             <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
